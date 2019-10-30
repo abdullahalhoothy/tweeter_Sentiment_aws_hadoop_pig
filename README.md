@@ -88,6 +88,22 @@ Each row(tuple) looks like the following:
 
 ## Exploring the Data
 
-
-
+* Loading Data
+load_tweets = LOAD 's3://bigdatapracticetweeter/demonetization-tweets.csv' USING PigStorage(',');
+* Remove unwanted columns 
+extract_details = FOREACH load_tweets GENERATE $0 as id,$1 as text;
+* Changes text column to word column that contains single words as tuples (tokens) and then flatten to convert each token from tupple to a seperate line(field) with only one word.
+tokens = foreach extract_details generate id,text, FLATTEN(TOKENIZE(text)) As word;
+* To rate each word we use a dictionary 
+dictionary = load 's3://bigdatapracticetweeter/AFINN.txt' using PigStorage('\t') AS(word:chararray,rating:int);
+* Now lets inner join the two tables using word here by excluding any field with a word that doesn't have a rating
+innerword_rating = join tokens by word , dictionary by word using 'replicated';
+* Now we will generate a new schema with only 3 coulmns, id text and ratings 
+rating = foreach innerword_rating generate tokens::id as id,tokens::text as text, dictionary::rating as rate;
+* Now grouping by id and text hereby grouping all the scores of a certain text given by a certain id. this will produce an outer bag(word_group) and an inner bag(rating) with the following schema word_group: {group: (id, text),rating:{(id, text, rate)}};
+word_group = group rating by (id,text);
+* Now, let’s perform the Average operation on the rating of the words per each tweet.This will generate a bag that maintains the groupped fields(id and text) and has a new field called tweet_rating that is the average of the rate scores in the rating bag.
+avg_rate = foreach word_group generate group, AVG(rating.rate) as tweet_rating;
+* positive_tweets = filter avg_rate by tweet_rating>=0;
+* negative_tweets = filter avg_rate by tweet_rating<0;
 
