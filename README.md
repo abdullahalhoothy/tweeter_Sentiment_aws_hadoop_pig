@@ -4,7 +4,7 @@ Practice project on using hadoop through pig through aws
 
 # Project source
 Sentiment Analysis on Demonetization – Pig Use Case (https://acadgild.com/blog/pig-use-case-sentiment-analysis-on-demonetization)
-the usecase in the link NOT using aws.
+the usecase in the link does NOT using aws.
 
 #### -- Project Status: [In-progress]
 https://
