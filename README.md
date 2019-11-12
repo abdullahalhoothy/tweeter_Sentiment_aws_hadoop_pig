@@ -1,15 +1,10 @@
 # tweeter_Sentiment_aws_hadoop_pig
 Practice project on using hadoop through pig through aws
 
-
-# Project source
-Sentiment Analysis on Demonetization – Pig Use Case (https://acadgild.com/blog/pig-use-case-sentiment-analysis-on-demonetization)
-the usecase in the link does NOT using aws.
-
-#### -- Project Status: [In-progress]
-https://
+#### -- Project Status: [Completed]
 
 ## Project Intro/Objective
+Analyse the sentiment of some tweeter comments regarding the indian currency change
 The purpose of this practice project is for me to get a hands on expereince on how to use hadoop.
 After learning about hadoop structure and that it's language is in Java i decided to use pig latin since won't be likely creating andy custom functions (UDFs)
 i didn't want to install a virtual machine on my computer because i didn't want to potentially introduce unforseen errors due to installation and i figured this would be a good time to learn how to use aws
