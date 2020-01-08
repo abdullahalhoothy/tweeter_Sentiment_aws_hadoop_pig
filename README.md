@@ -1,5 +1,5 @@
 # tweeter_Sentiment_aws_hadoop_pig
-Practice project on using hadoop through pig through aws
+Practice project on using hadoop through pig running aws
 
 #### -- Project Status: [Completed]
 
